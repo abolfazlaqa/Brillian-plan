@@ -1,0 +1,6 @@
+{
+  "name": "Brilliant Plan",
+  "description": "Construction project scheduling & site tracking app with Gantt chart, manpower allocation, MS Project XML import/export, and daily site progress logs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

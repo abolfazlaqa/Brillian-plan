@@ -61,8 +61,9 @@ import com.example.data.model.ProjectEntity
 import com.example.ui.ProjectMetrics
 import com.example.ui.components.PhaseProgressCard
 import com.example.ui.components.StatsOverviewCard
-import com.example.ui.theme.SafetyAmber
-import com.example.ui.theme.SafetyOrange
+import com.example.ui.theme.PersianGold
+import com.example.ui.theme.PersianGoldBright
+import com.example.ui.theme.PersianVioletPrimary
 import com.example.util.DateUtils
 
 @Composable
@@ -72,6 +73,7 @@ fun DashboardScreen(
     metrics: ProjectMetrics,
     latestLog: DailySiteLogEntity?,
     onSelectProject: (Long) -> Unit,
+    onOpenProjectManagement: () -> Unit,
     onNavigateToTasks: () -> Unit,
     onNavigateToGantt: () -> Unit,
     onNavigateToImport: () -> Unit,
@@ -81,7 +83,6 @@ fun DashboardScreen(
     onResetSample: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var projectMenuExpanded by remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = modifier
@@ -96,27 +97,27 @@ fun DashboardScreen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(180.dp),
+                    .height(185.dp),
                 shape = RoundedCornerShape(16.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Image(
-                        painter = painterResource(id = R.drawable.banner_construction_site_1790355694016),
-                        contentDescription = "کارگاه ساختمانی",
+                        painter = painterResource(id = R.drawable.banner_persian_plan_1790361197575),
+                        contentDescription = "برلیان پلن",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
 
-                    // Gradient overlay
+                    // Gradient overlay with Persian violet depth
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(
                                 Brush.verticalGradient(
                                     colors = listOf(
-                                        Color(0x70000000),
-                                        Color(0xEA0F172A)
+                                        Color(0x50160E33),
+                                        Color(0xF2160E33)
                                     )
                                 )
                             )
@@ -137,9 +138,9 @@ fun DashboardScreen(
                         ) {
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
-                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.85f),
+                                color = PersianVioletPrimary.copy(alpha = 0.9f),
                                 modifier = Modifier
-                                    .clickable { projectMenuExpanded = true }
+                                    .clickable { onOpenProjectManagement() }
                                     .testTag("dashboard_project_selector")
                             ) {
                                 Row(
@@ -154,31 +155,17 @@ fun DashboardScreen(
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(
-                                        text = "تغییر پروژه ▼",
+                                        text = "مدیریت پروژه‌ها ▾",
                                         style = MaterialTheme.typography.labelSmall,
-                                        color = SafetyAmber
-                                    )
-                                }
-                            }
-
-                            DropdownMenu(
-                                expanded = projectMenuExpanded,
-                                onDismissRequest = { projectMenuExpanded = false }
-                            ) {
-                                projects.forEach { p ->
-                                    DropdownMenuItem(
-                                        text = { Text("${p.code}: ${p.name}") },
-                                        onClick = {
-                                            onSelectProject(p.id)
-                                            projectMenuExpanded = false
-                                        }
+                                        color = PersianGoldBright,
+                                        fontWeight = FontWeight.Bold
                                     )
                                 }
                             }
 
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
-                                color = SafetyAmber.copy(alpha = 0.9f),
+                                color = PersianGold.copy(alpha = 0.95f),
                                 modifier = Modifier.clickable { onResetSample() }
                             ) {
                                 Row(
@@ -188,22 +175,24 @@ fun DashboardScreen(
                                     Icon(
                                         Icons.Default.Refresh,
                                         contentDescription = "پروژه نمونه",
-                                        tint = Color.Black,
+                                        tint = Color(0xFF160E33),
                                         modifier = Modifier.size(14.dp)
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Text(
-                                        text = "بارگذاری نمونه ۵ طبقه",
-                                        fontSize = 10.sp,
+                                        text = "قالب ساختمانی",
+                                        fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color.Black
+                                        color = Color(0xFF160E33)
                                     )
                                 }
                             }
                         }
 
                         // Bottom Title & Info
-                        Column {
+                        Column(
+                            modifier = Modifier.clickable { onOpenProjectManagement() }
+                        ) {
                             Text(
                                 text = currentProject?.name ?: "پروژه ساختمانی",
                                 style = MaterialTheme.typography.titleMedium,
@@ -215,27 +204,27 @@ fun DashboardScreen(
                                 Icon(
                                     Icons.Default.LocationOn,
                                     contentDescription = "موقعیت",
-                                    tint = SafetyAmber,
+                                    tint = PersianGoldBright,
                                     modifier = Modifier.size(14.dp)
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
                                     text = currentProject?.siteLocation ?: "کارگاه مرکزی",
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = Color(0xFFCBD5E1)
+                                    color = Color(0xFFE2D9F3)
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Icon(
                                     Icons.Default.Person,
                                     contentDescription = "مدیر",
-                                    tint = SafetyAmber,
+                                    tint = PersianGoldBright,
                                     modifier = Modifier.size(14.dp)
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
                                     text = currentProject?.managerName ?: "",
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = Color(0xFFCBD5E1)
+                                    color = Color(0xFFE2D9F3)
                                 )
                             }
                         }

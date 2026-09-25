@@ -24,4 +24,7 @@ interface DailySiteLogDao {
 
     @Query("DELETE FROM daily_site_logs WHERE id = :id")
     suspend fun deleteLogById(id: Long)
+
+    @Query("DELETE FROM daily_site_logs WHERE projectId = :projectId")
+    suspend fun deleteAllLogsForProject(projectId: Long)
 }

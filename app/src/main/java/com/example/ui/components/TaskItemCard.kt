@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.example.data.model.TaskEntity
 import com.example.ui.theme.CriticalPathRed
 import com.example.ui.theme.CriticalPathRedLight
-import com.example.ui.theme.SafetyAmber
+import com.example.ui.theme.PersianGoldBright
 import com.example.ui.theme.TaskCompletedGreen
 import com.example.ui.theme.TaskCompletedGreenLight
 import com.example.util.DateUtils
@@ -58,7 +58,7 @@ fun TaskItemCard(
     val statusColor = when {
         task.isCompleted -> TaskCompletedGreen
         task.isCritical -> CriticalPathRed
-        task.isInProgress -> SafetyAmber
+        task.isInProgress -> PersianGoldBright
         else -> MaterialTheme.colorScheme.onSurfaceVariant
     }
 

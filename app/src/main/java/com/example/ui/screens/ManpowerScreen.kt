@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.model.ResourceEntity
 import com.example.ui.ConstructionViewModel
-import com.example.ui.theme.SafetyAmber
+import com.example.ui.theme.PersianGold
 import com.example.util.DateUtils
 
 @Composable
@@ -188,7 +188,7 @@ fun ResourceCard(
         ) {
             Surface(
                 shape = RoundedCornerShape(10.dp),
-                color = if (resource.type == "نیروی انسانی") SafetyAmber.copy(alpha = 0.2f) else MaterialTheme.colorScheme.secondaryContainer
+                color = if (resource.type == "نیروی انسانی") PersianGold.copy(alpha = 0.2f) else MaterialTheme.colorScheme.secondaryContainer
             ) {
                 Box(
                     modifier = Modifier.size(44.dp),
@@ -197,7 +197,7 @@ fun ResourceCard(
                     Icon(
                         imageVector = Icons.Default.Engineering,
                         contentDescription = resource.name,
-                        tint = if (resource.type == "نیروی انسانی") SafetyAmber else MaterialTheme.colorScheme.secondary
+                        tint = if (resource.type == "نیروی انسانی") PersianGold else MaterialTheme.colorScheme.secondary
                     )
                 }
             }

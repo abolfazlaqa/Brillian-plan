@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Apartment
 import androidx.compose.material.icons.filled.Assignment
 import androidx.compose.material.icons.filled.AutoGraph
 import androidx.compose.material.icons.filled.Dashboard
@@ -59,10 +60,13 @@ import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.GanttScreen
 import com.example.ui.screens.ManpowerScreen
 import com.example.ui.screens.MspImportExportScreen
+import com.example.ui.screens.ProjectManagementDialog
 import com.example.ui.screens.ResourceEditDialog
 import com.example.ui.screens.TaskEditDialog
 import com.example.ui.screens.TasksScreen
 import com.example.ui.theme.MyApplicationTheme
+import com.example.ui.theme.PersianGold
+import com.example.ui.theme.PersianVioletPrimary
 
 enum class AppNavScreen(
     val title: String,
@@ -99,6 +103,7 @@ fun MainAppScreen(viewModel: ConstructionViewModel) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Dialog states
+    var showProjectDialog by remember { mutableStateOf(false) }
     var editingTask by remember { mutableStateOf<TaskEntity?>(null) }
     var showTaskDialog by remember { mutableStateOf(false) }
 
@@ -130,11 +135,24 @@ fun MainAppScreen(viewModel: ConstructionViewModel) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
+                navigationIcon = {
+                    IconButton(
+                        onClick = { showProjectDialog = true },
+                        modifier = Modifier.testTag("action_manage_projects")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Apartment,
+                            contentDescription = "مدیریت پروژه‌ها",
+                            tint = PersianGold
+                        )
+                    }
+                },
                 title = {
                     Text(
                         text = "برلیان پلن | Brilliant Plan",
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
                 actions = {
@@ -145,7 +163,7 @@ fun MainAppScreen(viewModel: ConstructionViewModel) {
                         Icon(
                             imageVector = Icons.Default.ImportExport,
                             contentDescription = "وارد کردن و خروجی MSP",
-                            tint = if (currentScreen == AppNavScreen.MSP_TOOLS) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onSurface
+                            tint = if (currentScreen == AppNavScreen.MSP_TOOLS) PersianGold else MaterialTheme.colorScheme.onSurface
                         )
                     }
                 },
@@ -203,6 +221,7 @@ fun MainAppScreen(viewModel: ConstructionViewModel) {
                         metrics = metrics,
                         latestLog = dailyLogs.firstOrNull(),
                         onSelectProject = { viewModel.selectProject(it) },
+                        onOpenProjectManagement = { showProjectDialog = true },
                         onNavigateToTasks = { currentScreen = AppNavScreen.TASKS },
                         onNavigateToGantt = { currentScreen = AppNavScreen.GANTT },
                         onNavigateToImport = { currentScreen = AppNavScreen.MSP_TOOLS },
@@ -321,6 +340,37 @@ fun MainAppScreen(viewModel: ConstructionViewModel) {
             onDelete = { resId ->
                 viewModel.deleteResource(resId)
             }
+        )
+    }
+
+    // Project Management Dialog
+    if (showProjectDialog) {
+        ProjectManagementDialog(
+            projects = allProjects,
+            activeProjectId = selectedProjectId,
+            onSelectProject = {
+                viewModel.selectProject(it)
+                showProjectDialog = false
+            },
+            onCreateProject = { name, code, manager, location, start, finish, notes ->
+                viewModel.createProject(
+                    name = name,
+                    code = code,
+                    managerName = manager,
+                    siteLocation = location,
+                    startDate = start,
+                    finishDate = finish,
+                    notes = notes
+                )
+                showProjectDialog = false
+            },
+            onUpdateProject = { proj ->
+                viewModel.updateCurrentProject(proj)
+            },
+            onDeleteProject = { id ->
+                viewModel.deleteProject(id)
+            },
+            onDismiss = { showProjectDialog = false }
         )
     }
 }

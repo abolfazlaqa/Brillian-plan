@@ -154,4 +154,15 @@ class ConstructionRepository(private val database: AppDatabase) {
     suspend fun updateProject(project: ProjectEntity) = withContext(Dispatchers.IO) {
         projectDao.updateProject(project)
     }
+
+    suspend fun createProject(project: ProjectEntity): Long = withContext(Dispatchers.IO) {
+        projectDao.insertProject(project)
+    }
+
+    suspend fun deleteProject(projectId: Long) = withContext(Dispatchers.IO) {
+        taskDao.deleteAllTasksForProject(projectId)
+        resourceDao.deleteAllResourcesForProject(projectId)
+        dailySiteLogDao.deleteAllLogsForProject(projectId)
+        projectDao.deleteProjectById(projectId)
+    }
 }

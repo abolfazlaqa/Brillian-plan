@@ -164,6 +164,65 @@ class ConstructionViewModel(application: Application) : AndroidViewModel(applica
         _selectedProjectId.value = projectId
     }
 
+    fun createProject(
+        name: String,
+        code: String = "PRJ-01",
+        managerName: String = "",
+        siteLocation: String = "",
+        startDate: Long = System.currentTimeMillis(),
+        finishDate: Long = System.currentTimeMillis() + (180L * 24 * 60 * 60 * 1000),
+        notes: String = ""
+    ) {
+        viewModelScope.launch {
+            val project = ProjectEntity(
+                id = 0,
+                name = name.ifBlank { "پروژه ساختمانی جدید" },
+                code = code.ifBlank { "PRJ-${System.currentTimeMillis() % 1000}" },
+                managerName = managerName.ifBlank { "مدیر کارگاه" },
+                siteLocation = siteLocation.ifBlank { "کارگاه اجرایی" },
+                startDate = startDate,
+                finishDate = finishDate,
+                notes = notes
+            )
+            val newId = repository.createProject(project)
+            _selectedProjectId.value = newId
+            _userMessage.emit("پروژه جدید با موفقیت ایجاد و فعال شد")
+        }
+    }
+
+    fun updateCurrentProject(project: ProjectEntity) {
+        viewModelScope.launch {
+            repository.updateProject(project)
+            _userMessage.emit("مشخصات پروژه به‌روزرسانی شد")
+        }
+    }
+
+    fun deleteProject(projectId: Long) {
+        viewModelScope.launch {
+            val projects = allProjects.value
+            if (projects.size <= 1) {
+                val newId = repository.createProject(
+                    ProjectEntity(
+                        name = "پروژه ساختمانی جدید",
+                        code = "PRJ-01",
+                        managerName = "مدیر کارگاه",
+                        siteLocation = "کارگاه اجرایی"
+                    )
+                )
+                repository.deleteProject(projectId)
+                _selectedProjectId.value = newId
+                _userMessage.emit("پروژه حذف شد و پروژه خالی جدید فعال گردید")
+            } else {
+                val nextProject = projects.firstOrNull { it.id != projectId }
+                if (nextProject != null) {
+                    _selectedProjectId.value = nextProject.id
+                }
+                repository.deleteProject(projectId)
+                _userMessage.emit("پروژه با موفقیت حذف گردید")
+            }
+        }
+    }
+
     fun updateTaskProgress(taskId: Long, newPercent: Int) {
         viewModelScope.launch {
             repository.updateTaskProgress(taskId, newPercent)

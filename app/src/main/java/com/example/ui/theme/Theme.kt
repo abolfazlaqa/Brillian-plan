@@ -12,41 +12,45 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = SafetyAmber,
-    onPrimary = ConstructionSlateDark,
-    primaryContainer = ConstructionSlateLight,
-    onPrimaryContainer = SafetyAmberLight,
-    secondary = BlueprintBlue,
-    onSecondary = Color.White,
-    tertiary = SafetyOrange,
+    primary = PersianGoldBright,
+    onPrimary = PersianVioletDeep,
+    primaryContainer = PersianVioletDark,
+    onPrimaryContainer = PersianGoldLight,
+    secondary = PersianTurquoise,
+    onSecondary = PersianVioletDeep,
+    secondaryContainer = PersianVioletMedium,
+    onSecondaryContainer = PersianTurquoiseLight,
+    tertiary = PersianGold,
     background = BackgroundDark,
-    onBackground = Color(0xFFF1F5F9),
+    onBackground = Color(0xFFF8F6FD),
     surface = SurfaceDark,
-    onSurface = Color(0xFFF8FAFC),
+    onSurface = Color(0xFFF8F6FD),
     surfaceVariant = SurfaceVariantDark,
-    onSurfaceVariant = Color(0xFFCBD5E1)
+    onSurfaceVariant = Color(0xFFD6CEEE)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = ConstructionSlate,
+    primary = PersianVioletPrimary,
     onPrimary = Color.White,
-    primaryContainer = ConstructionSlateDark,
-    onPrimaryContainer = SafetyAmber,
-    secondary = SafetyOrange,
+    primaryContainer = PersianVioletSoft,
+    onPrimaryContainer = PersianVioletPrimary,
+    secondary = PersianGoldDark,
     onSecondary = Color.White,
-    tertiary = BlueprintBlue,
+    secondaryContainer = PersianGoldLight,
+    onSecondaryContainer = PersianVioletDark,
+    tertiary = PersianTurquoise,
     background = BackgroundLight,
-    onBackground = Color(0xFF0F172A),
+    onBackground = PersianVioletDeep,
     surface = SurfaceLight,
-    onSurface = Color(0xFF0F172A),
+    onSurface = PersianVioletDeep,
     surfaceVariant = SurfaceVariantLight,
-    onSurfaceVariant = Color(0xFF475569)
+    onSurfaceVariant = Color(0xFF4A3E6D)
 )
 
 @Composable
 fun MyApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false, // Use our tailored construction engineering palette
+    dynamicColor: Boolean = false, // Keep our authentic Persian Violet & Gold brand palette
     content: @Composable () -> Unit,
 ) {
     val colorScheme = when {

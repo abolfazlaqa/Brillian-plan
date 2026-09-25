@@ -57,8 +57,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.ConstructionViewModel
-import com.example.ui.theme.SafetyAmber
-import com.example.ui.theme.SafetyOrange
+import com.example.ui.theme.PersianGold
 import kotlinx.coroutines.launch
 
 @Composable
@@ -352,7 +351,7 @@ fun MspImportExportScreen(
                 Spacer(modifier = Modifier.height(10.dp))
                 Button(
                     onClick = { viewModel.resetToSampleProject() },
-                    colors = ButtonDefaults.buttonColors(containerColor = SafetyAmber, contentColor = Color.Black),
+                    colors = ButtonDefaults.buttonColors(containerColor = PersianGold, contentColor = Color(0xFF160E33)),
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag("btn_reset_sample_project")

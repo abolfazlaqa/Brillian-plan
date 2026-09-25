@@ -55,7 +55,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.model.TaskEntity
 import com.example.ui.theme.CriticalPathRed
-import com.example.ui.theme.SafetyAmber
+import com.example.ui.theme.PersianGold
+import com.example.ui.theme.PersianGoldBright
 import com.example.ui.theme.TaskCompletedGreen
 import com.example.util.DateUtils
 
@@ -167,7 +168,7 @@ fun GanttChartView(
             Spacer(modifier = Modifier.width(12.dp))
             LegendItem(color = CriticalPathRed, label = "مسیر بحرانی (CPM)")
             Spacer(modifier = Modifier.width(12.dp))
-            LegendItem(color = SafetyAmber, label = "در حال اجرا")
+            LegendItem(color = PersianGoldBright, label = "در حال اجرا")
             Spacer(modifier = Modifier.width(12.dp))
             LegendItem(color = Color(0xFF64748B), label = "برنامه‌ریزی شده")
         }
@@ -380,7 +381,7 @@ private fun GanttBarRow(
                 Icon(
                     imageVector = Icons.Default.Diamond,
                     contentDescription = "Milestone",
-                    tint = if (task.isCritical) CriticalPathRed else SafetyAmber,
+                    tint = if (task.isCritical) CriticalPathRed else PersianGoldBright,
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -389,7 +390,7 @@ private fun GanttBarRow(
             val barColor = when {
                 task.isCompleted -> TaskCompletedGreen
                 task.isCritical -> CriticalPathRed
-                task.isInProgress -> SafetyAmber
+                task.isInProgress -> PersianGoldBright
                 else -> Color(0xFF64748B)
             }
 

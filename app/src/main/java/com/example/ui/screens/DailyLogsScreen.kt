@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.example.data.model.DailySiteLogEntity
 import com.example.ui.ConstructionViewModel
 import com.example.ui.theme.CriticalPathRed
-import com.example.ui.theme.SafetyAmber
+import com.example.ui.theme.PersianGoldBright
 import com.example.util.DateUtils
 
 @Composable
@@ -166,7 +166,7 @@ fun DailyLogItemCard(
                     Icon(
                         imageVector = Icons.Default.WbSunny,
                         contentDescription = "آب و هوا",
-                        tint = SafetyAmber,
+                        tint = PersianGoldBright,
                         modifier = Modifier.size(16.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))

@@ -39,8 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.ProjectMetrics
 import com.example.ui.theme.CriticalPathRed
-import com.example.ui.theme.SafetyAmber
-import com.example.ui.theme.SafetyOrange
+import com.example.ui.theme.PersianGold
+import com.example.ui.theme.PersianGoldBright
+import com.example.ui.theme.PersianVioletMedium
+import com.example.ui.theme.PersianVioletPrimary
 import com.example.ui.theme.TaskCompletedGreen
 import com.example.util.DateUtils
 
@@ -73,7 +75,7 @@ fun StatsOverviewCard(
                     CircularProgressIndicator(
                         progress = { metrics.overallProgress / 100f },
                         modifier = Modifier.fillMaxWidth(),
-                        color = SafetyAmber,
+                        color = PersianGoldBright,
                         trackColor = MaterialTheme.colorScheme.surfaceVariant,
                         strokeWidth = 8.dp
                     )
@@ -136,7 +138,7 @@ fun StatsOverviewCard(
                     icon = Icons.Default.HourglassBottom,
                     count = metrics.inProgressTasks,
                     label = "در حال اجرا",
-                    color = SafetyAmber,
+                    color = PersianGoldBright,
                     modifier = Modifier.weight(1f)
                 )
                 StatBadge(
@@ -230,7 +232,7 @@ fun PhaseProgressCard(
                         .fillMaxWidth()
                         .height(6.dp)
                         .clip(RoundedCornerShape(3.dp)),
-                    color = if (progressPercent >= 100) TaskCompletedGreen else SafetyAmber,
+                    color = if (progressPercent >= 100) TaskCompletedGreen else PersianGoldBright,
                     trackColor = MaterialTheme.colorScheme.surface
                 )
             }
